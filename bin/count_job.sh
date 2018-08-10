@@ -20,6 +20,11 @@ return=$(aws dynamodb query \
     --key-conditions "$condition"
 )
 
-num=$(echo $return | jq -r '.Items[].sleep_time.N' | awk '{if ($1 >= 5) print $1;}' | wc -l)
+num=$(
+    echo $return \
+    | jq -r '.Items[].sleep_time.N' \
+    | awk '{if ($1 >= 5) print $1;}' \
+    | wc -l
+)
 
 echo "5[sec]以上sleepしたJobの数は "$num" 個です"
