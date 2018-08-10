@@ -1,5 +1,7 @@
 #!/bin/bash
 
+index=${AWS_BATCH_JOB_ARRAY_INDEX:--1}
+
 sleep_time=$(( $RANDOM % 10))
 echo "sleep: "$sleep_time" second(s)"
 sleep $sleep_time
@@ -13,7 +15,7 @@ item=$(cat << EOS
         "S" : "$SEQ_ID"
     },
     "job_array_index" : {
-        "N" : "$AWS_BATCH_JOB_ARRAY_INDEX"
+        "N" : "$index"
     },
     "sleep_time": {
         "N" : "$sleep_time"
