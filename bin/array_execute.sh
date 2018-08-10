@@ -1,6 +1,5 @@
 #!/bin/bash
 
-tablename=$DYNAMO_TABLE
 item=$(cat << EOS
 {
     "id" : {
@@ -18,5 +17,5 @@ EOS
 
 echo "put item: $item"
 aws dynamodb put-item \
-    --table-name test_batcharray \
+    --table-name $DYNAMO_TABLE \
     --item "$item"
