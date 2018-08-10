@@ -1,5 +1,9 @@
 #!/bin/bash
 
+sleep_time=$(( $RANDOM % 10))
+echo "sleep: "$sleep_time" second(s)"
+sleep $sleep_time
+
 item=$(cat << EOS
 {
     "id" : {
@@ -10,6 +14,9 @@ item=$(cat << EOS
     },
     "job_array_index" : {
         "N" : "$AWS_BATCH_JOB_ARRAY_INDEX"
+    },
+    "sleep_time": {
+        "N" : "$sleep_time"
     },
     "unixtime" : {
         "N" : "$(date +%s)"
