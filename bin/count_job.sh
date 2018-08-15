@@ -30,4 +30,31 @@ num=$(
 )
 
 msg="5[sec]以上sleepしたJobの数は "$total" 個中 "$num" 個です"
+item=$(cat << EOS
+{
+    "id" : {
+        "S" : "$(date +%s)_$(echo $(( $RANDOM )))"
+    },
+    "seq_id" : {
+        "S" : "$SEQ_ID"
+    },
+    "total_count" : {
+        "N" : "$total"
+    },
+    "over5_count": {
+        "N" : "$num"
+    },
+    "message": {
+        "S" : "$msg"
+    },
+    "unixtime" : {
+        "N" : "$(date +%s)"
+    }
+}
+EOS
+)
+
 echo $msg
+aws dynamodb put-item \
+    --table-name $DYNAMO_TABLE \
+    --item "$item"
