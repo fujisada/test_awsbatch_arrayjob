@@ -29,4 +29,5 @@ num=$(
     | wc -l
 )
 
-echo "5[sec]以上sleepしたJobの数は "$total" 個中 "$num" 個です"
+msg="5[sec]以上sleepしたJobの数は "$total" 個中 "$num" 個です"
+echo $msg
