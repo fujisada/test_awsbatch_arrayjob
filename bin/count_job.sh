@@ -20,6 +20,8 @@ return=$(aws dynamodb query \
     --key-conditions "$condition"
 )
 
+total=$(echo $return | jq .Count)
+
 num=$(
     echo $return \
     | jq -r '.Items[].sleep_time.N' \
@@ -27,4 +29,4 @@ num=$(
     | wc -l
 )
 
-echo "5[sec]以上sleepしたJobの数は "$num" 個です"
+echo "5[sec]以上sleepしたJobの数は "$total" 個中 "$num" 個です"
